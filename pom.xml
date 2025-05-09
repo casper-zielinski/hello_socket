@@ -86,5 +86,41 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <release>21</release>
+            </configuration>
+        </plugin>
+        <!-- Plugin zum Ausführen der Main-Methode -->
+        <plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <version>3.1.0</version>
+  <executions>
+    <execution>
+      <id>run-server</id>
+      <goals>
+        <goal>java</goal>
+      </goals>
+      <configuration>
+        <mainClass>at.fhj.msd.Server.App</mainClass>
+      </configuration>
+    </execution>
+    <execution>
+      <id>run-client</id>
+      <goals>
+        <goal>java</goal>
+      </goals>
+      <configuration>
+        <mainClass>at.fhj.msd.Client.App</mainClass>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+    </plugins>
   </build>
 </project>

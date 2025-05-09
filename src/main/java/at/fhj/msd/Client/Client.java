@@ -8,20 +8,45 @@ import java.net.Socket;
 
 
 public class Client {
-      private static final String HOST = "localhost";
-      private static final int PORT = 1234;
+      private String HOST;
+      private int PORT;
 
-      public static void main(String[] args) throws IOException {
-            try(Socket socket = new Socket(HOST, PORT))
-            {
-                  try (BufferedReader in = new BufferedReader(new 
-                  InputStreamReader(socket.getInputStream())  );
-                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true))
-                  {
-                        System.out.printf("Messege from Server: %s\n", in.readLine());
-                        out.println("Hello from Client");
-                  }
+      public Client(String HOST, int PORT) {
+            if (HOST == null || HOST.isEmpty()) {
+              throw new IllegalArgumentException("invalid host");
             }
-      }
-
+            if (PORT < 1024 || PORT > 65535) {
+              throw new IllegalArgumentException("invalid port");
+            }
+            this.HOST = HOST;
+            this.PORT = PORT;
+          }
+        
+      @SuppressWarnings("CallToPrintStackTrace")
+      public String ask() {
+              try (Socket socket = new Socket(this.HOST, this.PORT)) {
+                  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    return in.readLine();
+              
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+            return "Something went wrong";
+          }
+        
+          @SuppressWarnings("CallToPrintStackTrace")
+          public String ask(String s) {
+                try (Socket socket = new Socket(this.HOST, this.PORT))
+                {
+                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        
+                        out.println(s);
+                        return in.readLine();
+                
+            } catch (IOException e) {
+                  e.printStackTrace();
+            }
+            return "Something went wrong";
+          }
 }

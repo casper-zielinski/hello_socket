@@ -11,22 +11,47 @@ import java.net.Socket;
  * Hello world!
  */
 public class Server {
-    public static final int PORT = 1234;
-    public static void main(String[] args) throws IOException {
-        System.out.println("Waiting for client connection..."); // Printing before waiting for a response
-        try (ServerSocket server = new ServerSocket(PORT); Socket socket = server.accept()) { // Making a ServerSocket and declaring a PORT and then a socket and accepting the ServerSocket, waiting 
-            // until response. with server.accept() the socket is open, waiting for a connection. Until someone connects to the server,
-            // the code is blocked. Once a connection is established, the "next line of code" is run on the server.
-            // server.accept() -> wait until client connects
+    private int PORT;
+    private int count;
 
-            System.out.println("Client connected: " + server.getInetAddress().getHostAddress()); // Printing afer connectiong
-            
-            // With thes lines, we (try) to create the reader and write objects on the server side, based on the established connection (socket), so that we can communicate
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())); PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
-                out.println("Hello from server!"); // Printing to the Client, because --> PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
-                System.out.printf("Message sent to client: %s", in.readLine()); // Reading from the Client, because --> BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream())
-                
+    public Server(int PORT) {
+        if (PORT < 1024 || PORT > 65535) {
+          throw new IllegalArgumentException("invalid value for port");
+        }
+        this.PORT = PORT;
+        this.count = 0;
+      }
+    
+
+    @SuppressWarnings("CallToPrintStackTrace")
+      public void listen() {
+        System.out.printf("Start listening on port %d\n\n>Press Ctrl+C to stop<\n\n", this.PORT);
+        while (true)
+        {
+            try (ServerSocket server = new ServerSocket(this.PORT)) {
+            Socket socket = server.accept();
+
+              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+              /*
+                  It is important that the client also performs a flush() when sending,
+                  otherwise it will not work! The easiest way to do this is, of course, 
+                  with the autoFlush flag when creating the object → PrintWriter out = new PrintWriter(socket.getOutputStream(), true); 
+               */
+              
+              System.out.printf("client #%d connected...\n", ++this.count);
+              String s = "socket";
+              if (in.ready()) { // to check if there is any data to read, with the [].ready() method of the BufferedReader 
+                s = in.readLine();
+              }
+              out.println("hello" + " " + s);
+          
+            } catch (IOException e) {
+            System.out.println("Server error");
+            e.printStackTrace();
             }
         }
-    }
+          
+      }
+    
 }
