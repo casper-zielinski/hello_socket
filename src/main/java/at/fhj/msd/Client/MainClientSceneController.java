@@ -19,7 +19,8 @@ public class MainClientSceneController {
 
     @FXML
     void btn_send(ActionEvent event) {
-        
+        Client client = new Client ("localhost", 1234);
+        client.writetoServer(tf_send.getText());
     }
 
 }

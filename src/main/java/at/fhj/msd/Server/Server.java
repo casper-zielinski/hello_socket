@@ -13,6 +13,8 @@ import java.net.Socket;
 public class Server {
     private int PORT;
     private int count;
+    private String message;
+    public boolean isRunning = true;
 
     /**
      * Constructor for the Server class.
@@ -41,7 +43,7 @@ public class Server {
     @SuppressWarnings("CallToPrintStackTrace")
       public void listen() throws InterruptedException {
         System.out.printf("Start listening on port %d\n\n>Press Ctrl+C to stop<\n\n", this.PORT);
-        while (true)
+        while (isRunning())
         {
           
             //Initializes a ServerSocket on the specified port and waits for a client to connect.
@@ -70,7 +72,50 @@ public class Server {
             e.printStackTrace();
             }
         }
+      }
+
+      public boolean isRunning() {
+        return isRunning;
+      }
+
+      public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+      }
+
+    @SuppressWarnings("CallToPrintStackTrace")
+      public void ReadingfromClient() throws InterruptedException {
+         while (isRunning)
+        {
           
+            //Initializes a ServerSocket on the specified port and waits for a client to connect.
+            //The ServerSocket is closed automatically when the try block is exited.
+            try (ServerSocket server = new ServerSocket(this.PORT)) {
+            Socket socket = server.accept(); // Waits for a client to connect
+
+              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+              // PrintWriter out = new PrintWriter(socket.getOutputStream(), true); //autoFlush helps to flush the stream automatically after each print
+              /*
+                  It is important that the client also performs a flush() when sending,
+                  otherwise it will not work! The easiest way to do this is, of course, 
+                  with the autoFlush flag when creating the object → PrintWriter out = new PrintWriter(socket.getOutputStream(), true); 
+               */
+              System.out.printf("client #%d connected...\n", ++this.count);
+              String message = " ";
+              Thread.sleep(1000); // Sleep for 1 second to simulate some processing time
+              if (in.ready()) { // to check if there is any data to read, with the [].ready() method of the BufferedReader 
+                message = in.readLine();
+              }
+              
+          
+            } catch (IOException e) {
+            System.out.println("Server error");
+            e.printStackTrace();
+            }
+        }
+      }
+
+      public String getmessage() {
+        return this.message;
       }
     
 }

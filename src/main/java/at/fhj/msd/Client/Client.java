@@ -63,4 +63,18 @@ public class Client {
             }
             return "Something went wrong";
           }
+
+      @SuppressWarnings("CallToPrintStackTrace")
+          public void writetoServer(String s) {
+                try (Socket socket = new Socket(this.HOST, this.PORT))
+                {
+                        PrintWriter out = new PrintWriter(socket.getOutputStream(), true); // autoFlush helps to flush the stream automatically after each print   
+                        out.println(s);
+                
+            } catch (IOException e) {
+                  e.printStackTrace();
+                  System.out.println("Something went wrong");
+            }
+          }
+
 }
