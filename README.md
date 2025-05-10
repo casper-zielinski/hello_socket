@@ -43,7 +43,7 @@ There are also two JavaFX Stages in it. each one called by a different commenad.
 
 To implement Java FX:
 
-- settings.json`
+- settings.json
 
 ```json
 {
@@ -109,7 +109,7 @@ To implement Java FX:
   - plugin
 
   ```xml
-      plugin>
+      <plugin>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
