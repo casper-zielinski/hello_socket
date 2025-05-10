@@ -1,5 +1,20 @@
 {
+      "version": "0.2.0",
       "configurations": [
-      
+      {
+            "type":"java",
+            "name":"MainServer",
+            "request":"launch",
+            "mainClass":"at.fhj.msd.Server.MainServer",
+            "projectName":"MSD-Server"
+      },
+      {
+            "type":"java",
+            "name":"Java FX Server",
+            "request":"launch",
+            "mainClass": "Main",
+            "vmArgs": "--module-path lib --add-modules javafx.controls"
+  
+      }
       ]
 }

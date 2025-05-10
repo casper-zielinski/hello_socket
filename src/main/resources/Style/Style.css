@@ -1,0 +1,37 @@
+AnchorPane{
+      -fx-background-color: rgba(200, 228, 240, 0.6);
+}
+
+.text-area{
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-control-inner-background: rgb(0, 0, 0); /* Hintergrund der Texteingabe */
+    -fx-text-fill: rgb(255, 255, 255); /* Textfarbe */
+}
+
+#lb_servertext{
+    -fx-text-fill: rgb(0, 0, 0);
+    font-size: 20px; /* Standard property for compatibility */
+    -fx-font-size: 20px;
+    fx-font-weight: bold;
+    font-family: "Arial"; /* Standard property for compatibility */
+    -fx-font-family: "Arial";
+}
+
+#lb_clienttext{
+    -fx-text-fill: rgb(0, 0, 0);
+    font-size: 20px; /* Standard property for compatibility */
+    -fx-font-size: 20px;
+    fx-font-weight: bold;
+    font-family: "Arial"; /* Standard property for compatibility */
+    -fx-font-family: "Arial";
+}
+
+.text-field{
+    -fx-border-color: rgb(0, 0, 0);
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-control-inner-background: rgb(0, 0, 0); /* Hintergrund der Texteingabe */
+    -fx-text-fill: rgb(255, 255, 255); /* Textfarbe */
+}

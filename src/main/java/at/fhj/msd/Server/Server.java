@@ -14,6 +14,15 @@ public class Server {
     private int PORT;
     private int count;
 
+    /**
+     * Constructor for the Server class.
+     *
+     * @param PORT The port number on which the server will listen for incoming connections.
+     * @param count The number of clients connected to the server.
+     *             This is initialized to 0 when the server is created.
+     * @throws IllegalArgumentException if the provided port number is not in the valid range (1024-65535).
+     * The range is chosen to avoid using well-known ports (0-1023). 
+     */
     public Server(int PORT) {
         if (PORT < 1024 || PORT > 65535) {
           throw new IllegalArgumentException("invalid value for port");
@@ -23,16 +32,24 @@ public class Server {
       }
     
 
+      /**
+       * Starts the server and listens for incoming connections.
+       * When a client connects, it reads a message from the client and sends a response back.
+       * The server runs indefinitely until interrupted with Ctrl+C command. (this is because of the while(true) loop)
+       */
     @SuppressWarnings("CallToPrintStackTrace")
       public void listen() {
         System.out.printf("Start listening on port %d\n\n>Press Ctrl+C to stop<\n\n", this.PORT);
         while (true)
         {
+          
+            //Initializes a ServerSocket on the specified port and waits for a client to connect.
+            //The ServerSocket is closed automatically when the try block is exited.
             try (ServerSocket server = new ServerSocket(this.PORT)) {
-            Socket socket = server.accept();
+            Socket socket = server.accept(); // Waits for a client to connect
 
               BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+              PrintWriter out = new PrintWriter(socket.getOutputStream(), true); //autoFlush helps to flush the stream automatically after each print
               /*
                   It is important that the client also performs a flush() when sending,
                   otherwise it will not work! The easiest way to do this is, of course, 
