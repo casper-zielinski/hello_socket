@@ -3,4 +3,6 @@ at\fhj\msd\Server\Server.class
 at\fhj\msd\Client\App.class
 at\fhj\msd\Client\Client.class
 at\fhj\msd\Server\MainServer.class
+at\fhj\msd\Client\MainClientSceneController.class
+at\fhj\msd\Client\MainClient.class
 at\fhj\msd\Server\MainServerSceneController.class

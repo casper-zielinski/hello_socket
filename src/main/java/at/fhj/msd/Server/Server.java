@@ -36,9 +36,10 @@ public class Server {
        * Starts the server and listens for incoming connections.
        * When a client connects, it reads a message from the client and sends a response back.
        * The server runs indefinitely until interrupted with Ctrl+C command. (this is because of the while(true) loop)
+       * @throws InterruptedException 
        */
     @SuppressWarnings("CallToPrintStackTrace")
-      public void listen() {
+      public void listen() throws InterruptedException {
         System.out.printf("Start listening on port %d\n\n>Press Ctrl+C to stop<\n\n", this.PORT);
         while (true)
         {
@@ -58,6 +59,7 @@ public class Server {
               
               System.out.printf("client #%d connected...\n", ++this.count);
               String s = "socket";
+              Thread.sleep(1000); // Sleep for 1 second to simulate some processing time
               if (in.ready()) { // to check if there is any data to read, with the [].ready() method of the BufferedReader 
                 s = in.readLine();
               }

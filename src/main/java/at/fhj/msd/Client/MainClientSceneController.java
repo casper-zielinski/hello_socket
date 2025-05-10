@@ -19,9 +19,7 @@ public class MainClientSceneController {
 
     @FXML
     void btn_send(ActionEvent event) {
-       Client client = new Client ("localhost", 1234);
-            String response = client.ask(tf_send.getText());
-            lb_clienttext.setText(response);
+        
     }
 
 }
