@@ -105,6 +105,11 @@ public class Server {
               if (in.ready()) { // to check if there is any data to read, with the [].ready() method of the BufferedReader 
                 message = in.readLine();
               }
+              if (message.equals("/exit")) {
+                System.out.println("Client disconnected");
+                break;
+              }
+              System.out.println(message);
               
           
             } catch (IOException e) {

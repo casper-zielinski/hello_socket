@@ -29,8 +29,17 @@ public class MainServerSceneController {
 
     @FXML
     void btn_onClickconnect(ActionEvent event) throws InterruptedException {
-        server = new Server(1234);
-        server.ReadingfromClient();
+        new Thread(() -> {
+            try {
+                server = new Server(1234);
+                server.ReadingfromClient();
+                ta_receive.appendText(server.getmessage() +"\n");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        
+        
     }
 
 }
